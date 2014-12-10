@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +15,17 @@ import android.widget.EditText;
 
 import net.dseelig.crimintalintent.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class CrimeFragment extends Fragment {
     private Crime crime;
     private EditText titleField;
     private Button dateButton;
     private CheckBox solvedCheckBox;
+    // Tuesday, Oct 12, 2012
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE, LLL d, y",Locale.US);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +53,8 @@ public class CrimeFragment extends Fragment {
             }
         });
         dateButton = (Button)v.findViewById(R.id.crime_date);
-        dateButton.setText(crime.getDate().toString());
+
+        dateButton.setText(dateFormat.format(crime.getDate()));
         dateButton.setEnabled(false);
 
         solvedCheckBox = (CheckBox)v.findViewById(R.id.crime_solved);
